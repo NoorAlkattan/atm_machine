@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: 'https://atm-machine-noor-samir.c9users.io.', port: 80 }
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -36,7 +36,17 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-
+config.action_mailer.default_url_options = { host: 'https://atm-machine-noor-samir.c9users.io.', port: 80 }
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  config.action_mailer.perform_deliveries = true
+ config.action_mailer.delivery_method = :smtp
+ config.action_mailer.smtp_settings = {
+     :address              => "smtp.gmail.com",
+     :port                 => 587,
+     :user_name            => ENV["email"],
+     :password             => ENV["password"],
+     :authentication       => 'plain',
+     :enable_starttls_auto => true  }
 end
