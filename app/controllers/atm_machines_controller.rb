@@ -1,15 +1,15 @@
 class AtmMachinesController < ApplicationController
   before_action :set_atm_machine, only: [:show, :edit, :update, :destroy]
   skip_before_filter :authenticate_user!, :only => :index
-
-  # GET /atm_machines
-  # GET /atm_machines.json
-  def index
+  
+def index
+  if params[:search].present?
+    @atm_machines = AtmMachine.near(params[:search], 50)
+  else
     @atm_machines = AtmMachine.all
   end
-
-  # GET /atm_machines/1
-  # GET /atm_machines/1.json
+end
+  
   def show
     @user = User.find(current_user)
   end
