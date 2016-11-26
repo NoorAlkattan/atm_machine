@@ -11,7 +11,10 @@ def index
 end
   
   def show
-    @user = User.find(current_user)
+    #@user = User.find(current_user)
+    @atm_machine = AtmMachine.find(params[:id])
+    #session[:my_atm] = @atm_machine_id
+    session[:my_atm]=@atm_machine.id
   end
 
   # GET /atm_machines/new
