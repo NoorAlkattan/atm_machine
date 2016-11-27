@@ -18,6 +18,19 @@ class Account < ActiveRecord::Base
      msg
 end
 
+  def withdrawal (amt)
+      if amt[:amount].to_f < 0.0 || max_withdrawal?(amt[:amount])
+        msg= "error"
+    else
+        self.balance = self.balance.to_f - amt[:amount].to_f
+        self.save
+        transactions.create!(amount: amt[:amount], transaction_type: 2)
+        msg = "done!"
+   end
+   
+     msg
+end
+
 private
 
 def limit_daily_deposit?(current_amount)
@@ -25,10 +38,19 @@ def limit_daily_deposit?(current_amount)
     sum = amounts_list.map(&:to_f).reduce(:+)
     new_balance_today = sum.to_f + current_amount.to_f
     if new_balance_today > 1000
+    else
+        false
+    end
+end
+end
+    
+ def max_withdrawal?(current_amount)
+    amounts_list = self.transactions.today.where(transaction_type: 2).pluck(:amount)
+    sum = amounts_list.map(&:to_f).reduce(:+)
+    new_balance_today =  current_amount.to_f + sum.to_f 
+    if new_balance_today > 500
         return true
     else
         false
     end
-    
-end
 end

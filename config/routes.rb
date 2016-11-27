@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+ 
   resources :atm_machines
   resources :transactions
   resources :user_infos
@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     member do
       get :new_deposit
       post :create_deposit
+      get :new_withdrawal
+      post :create_withdrawal
     end
   end
   
