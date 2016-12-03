@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+  root "atm_machines#index"
   resources :atm_machines
   resources :transactions
   resources :user_infos

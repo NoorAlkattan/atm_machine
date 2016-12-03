@@ -1,6 +1,8 @@
-<h1>Editing User Info</h1>
+<div class="container">
 
+<h1><font color="red">Editing User Info</font></h1>
 <%= render 'form' %>
 
-<%= link_to 'Show', @user_info %> |
-<%= link_to 'Back', user_infos_path %>
+&nbsp;&nbsp;&nbsp;<%= link_to 'Show', @user_info , class:"btn btn-info" %> |
+<%= link_to 'Back', atm_machine_path(session[:my_atm]),class:"btn btn-danger" %>
+</div>

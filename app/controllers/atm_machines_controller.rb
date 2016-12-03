@@ -1,5 +1,5 @@
 class AtmMachinesController < ApplicationController
-  before_action :set_atm_machine, only: [:show, :edit, :update, :destroy]
+  before_action :set_atm_machine, only: [:update, :destroy]
   skip_before_filter :authenticate_user!, :only => :index
   
 def index
@@ -11,9 +11,9 @@ def index
 end
   
   def show
-    #@user = User.find(current_user)
     @atm_machine = AtmMachine.find(params[:id])
-    #session[:my_atm] = @atm_machine_id
+    @user = User.find(current_user)
+    #@atm_machine = AtmMachine.find(params[:id])
     session[:my_atm]=@atm_machine.id
   end
 
@@ -24,6 +24,7 @@ end
 
   # GET /atm_machines/1/edit
   def edit
+    @atm_machine = AtmMachine.find(params[:id])
   end
 
   # POST /atm_machines
@@ -40,7 +41,7 @@ end
         format.json { render json: @atm_machine.errors, status: :unprocessable_entity }
       end
     end
-  end
+end
 
   # PATCH/PUT /atm_machines/1
   # PATCH/PUT /atm_machines/1.json
