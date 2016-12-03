@@ -1,4 +1,4 @@
-
+<div class="container">
 
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@atm_machine.latitude}%2C#{@atm_machine.longitude}" %>
 
@@ -9,16 +9,19 @@
 <% end %>
 </ul>
 <% if current_user.user_info.present? %>
-    <%= link_to 'Edit user info', edit_user_info_path(current_user.user_info, atm_info: @atm_machine.id) %>
+    <%= link_to 'Edit user info', edit_user_info_path(current_user.user_info, atm_info: @atm_machine.id),class:"btn btn-info" %>
 <%else%>
     <%= link_to 'Add user info', new_user_info_path(atm_info: @atm_machine.id) %>
-<%end%><br>
+<%end%>
 
-<%= link_to 'Add new account', new_account_path%><br>
-<%= link_to 'Transaction', new_transaction_path%><br>
-<%= link_to 'Deposit', new_deposit_account_path(current_user.account) %><br>
-<%= link_to 'Withdrawal' , new_withdrawal_account_path(current_user.account) %>
 <% if current_user.account.present? %>
+<%= link_to 'Deposit', new_deposit_account_path(current_user.account),class:"btn btn-success" %>
+<%= link_to 'Withdrawal' , new_withdrawal_account_path(current_user.account),class:"btn btn-primary" %>
+<%= link_to 'Transactions', transactions_path(account_id: current_user.account.id),class:"btn btn-warning"%>
 <h1>Total Balance => <%= number_to_currency(current_user.account.balance) %></h1>
 <p><%= params[:msg]%></p>
-<%end%>
+<%end%><br>
+<br>
+<%= link_to 'back', atm_machines_path,class:"btn btn-danger"%>
+</div>
+

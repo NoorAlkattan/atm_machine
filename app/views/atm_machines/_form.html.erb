@@ -1,3 +1,4 @@
+<div class="container">
 <%= form_for(@atm_machine) do |f| %>
   <% if @atm_machine.errors.any? %>
     <div id="error_explanation">
@@ -24,6 +25,7 @@
     <%= f.text_field :longitude %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit  %>
   </div>
 <% end %>
+</div>

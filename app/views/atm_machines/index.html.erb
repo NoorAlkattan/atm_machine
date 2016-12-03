@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<div class="container">
 <h1>Listing Atm Machines</h1>
 
 <%= form_tag atm_machines_path, :method => :get do %>
@@ -9,7 +9,7 @@
   </p>
 <% end %>
 
-<table>
+<table class= "table table-striped">
   <thead>
     <tr>
       <th>Address</th>
@@ -25,9 +25,8 @@
         <td><%= atm_machine.address %></td>
         <td><%= atm_machine.latitude %></td>
         <td><%= atm_machine.longitude %></td>
-        <td><%= link_to 'Show', atm_machine %></td>
-        <td><%= link_to 'Edit', edit_atm_machine_path(atm_machine) %></td>
-        <td><%= link_to 'Destroy', atm_machine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', atm_machine , class:"btn btn-danger" %></td> 
+ 
       </tr>
     <% end %>
   </tbody>
@@ -35,4 +34,6 @@
 
 <br>
 
-<%= link_to 'New Atm machine', new_atm_machine_path %>
+<%= link_to 'New Atm machine', new_atm_machine_path, class:"btn btn-primary btn-lg btn-block" %>
+
+</div>

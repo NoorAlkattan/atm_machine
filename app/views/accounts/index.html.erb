@@ -1,8 +1,9 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Accounts</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Account no</th>
@@ -16,9 +17,8 @@
       <tr>
         <td><%= account.account_no %></td>
         <td><%= account.balance %></td>
-        <td><%= link_to 'Show', account %></td>
-        <td><%= link_to 'Edit', edit_account_path(account) %></td>
-        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', account,class:"btn btn-info" %></td>
+
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Account', new_account_path %>
+<%= link_to 'Back', atm_machine_path(session[:my_atm]),class:"btn btn-danger" %>
+</div>

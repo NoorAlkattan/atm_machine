@@ -2,23 +2,36 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
   
   def new_deposit
-  @account = Account.find(params[:id])
+    @account = Account.find(params[:id])
   end
   
   def create_deposit
     @account = Account.find(params[:id])
-    msg = @account.deposit(deposit_params)
-    redirect_to atm_machine_path(session[:my_atm],msg: msg)
-    
+    if deposit_params[:amount].to_f <= 1000 && @account.deposit(deposit_params)
+      @account.transactions.create(amount: deposit_params[:amount], transaction_type: 1)
+      flash[:notice] = " Deposit Complete Successfully"
+      redirect_to atm_machine_path(session[:my_atm])  
+    else
+      flash[:alert] = @account.errors.full_messages.to_sentence
+      render :new_deposit
+    end
   end
+  
+  
   def new_withdrawal
     @account = Account.find(params[:id])
   end
   
   def create_withdrawal
     @account = Account.find(params[:id])
-    msg = @account.withdrawal(withdrawal_params)
-    redirect_to atm_machine_path(session[:my_atm],msg: msg)
+    if withdrawal_params[:amount].to_f <= 500 && @account.withdrawal(withdrawal_params)
+    @account.transactions.create(amount: withdrawal_params[:amount], transaction_type: 2)
+    flash[:notice] = "Transaction Complete… did you want to perform another transaction?"
+    redirect_to atm_machine_path(session[:my_atm])
+  else
+    flash[:alert] = @account.errors.full_messages.to_sentence
+    render :new_withdrawal
+    end
   end
   
   def index
@@ -28,55 +41,6 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
-  end
-
-  # GET /accounts/new
-  def new
-    @account = Account.new
-  end
-
-  # GET /accounts/1/edit
-  def edit
-  end
-
-  # POST /accounts
-  # POST /accounts.json
-  def create
-    @account = Account.new(account_params)
-    @account.user_id = current_user.id
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @account }
-      else
-        format.html { render :new }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /accounts/1
-  # PATCH/PUT /accounts/1.json
-  def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        format.json { render :show, status: :ok, location: @account }
-      else
-        format.html { render :edit }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /accounts/1
-  # DELETE /accounts/1.json
-  def destroy
-    @account.destroy
-    respond_to do |format|
-      format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
