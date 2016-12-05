@@ -1,32 +1,34 @@
 <div class="container">
   
 <p id="notice"><%= notice %></p>
-
 <h1>Listing Transactions</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
-     
-      <th>Transaction type</th>
+      <th>ATM</th>
       <th>Amount</th>
-      <th colspan="3"></th>
+      <th>Transaction type</th>
+      <th>Transaction Time</th>
+     
     </tr>
   </thead>
 
   <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td><% if transaction.transaction_type == 1 %>
-            <%= "Deposit" %>
-            <%else%>
-            <%= "Withdrawal" %>
-            <%end%>
-      
-      
+   <% @transactions.each do |transaction| %>
+   
+     <tr>
+        <td><%= transaction.atm_machine_id %></td>
         <td><%= transaction.amount %></td>
-        <td><%= link_to 'Show', transaction,class:"btn btn-primary" %></td>
-      </tr>
+        <td><% if transaction.transaction_type ==1 %>
+           <%="Deposit"%>
+           <%else%>
+           <%="Withdrawal"%>
+           
+           <%end%></td>
+           <td><%=transaction.created_at.in_time_zone('Central Time (US & Canada)')%></td>
+         
+     </tr>
     <% end %>
   </tbody>
   

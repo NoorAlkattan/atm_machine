@@ -3,6 +3,7 @@ class AtmMachinesController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :index
   
 def index
+ 
   if params[:search].present?
     @atm_machines = AtmMachine.near(params[:search], 50)
   else
@@ -13,8 +14,8 @@ end
   def show
     @atm_machine = AtmMachine.find(params[:id])
     @user = User.find(current_user)
-    #@atm_machine = AtmMachine.find(params[:id])
     session[:my_atm]=@atm_machine.id
+    
   end
 
   # GET /atm_machines/new
