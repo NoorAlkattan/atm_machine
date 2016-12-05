@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
 <div class="container">
-<h1>Listing Atm Machines</h1>
+  <center><img src=http://www.affordablecebu.com/pictures/articles/banking/Deposit_money_in_Unionbank_ATM.gif width="350" height="350"></center>
+<center><h1>Listing Atm Machines</h1></center>
 
-<%= form_tag atm_machines_path, :method => :get do %>
+<center><%= form_tag atm_machines_path, :method => :get do %></center>
   <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search Near", :name => nil %>
+    <center><%= text_field_tag :search, params[:search] %></center><br>
+    <center><%= submit_tag "Search Near", :name => nil %></center>
   </p>
 <% end %>
 
