@@ -13,9 +13,8 @@
 <table class= "table table-striped">
   <thead>
     <tr>
+     <th>ATM Machine Number</th>
       <th>Address</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,9 +22,8 @@
   <tbody>
     <% @atm_machines.each do |atm_machine| %>
       <tr>
-        <td><%= atm_machine.address %></td>
-        <td><%= atm_machine.latitude %></td>
-        <td><%= atm_machine.longitude %></td>
+       <td><%= atm_machine.id%></td>
+        <td><%= atm_machine.address%></td>
         <td><%= link_to 'Show', atm_machine , class:"btn btn-danger" %></td> 
  
       </tr>

@@ -1,8 +1,7 @@
 <div class="container">
  <img src=http://www.citradesreview.com/wp-content/uploads/2014/02/deposit.jpg width="300" height="300">
-<%= form_for @account, url: create_deposit_account_path, method: :post do |f| %>
-
- <div class="field">
+  <%= form_for @account, url: create_deposit_account_path, method: :post do |f| %>
+  <div class="field">
    <h1><%= f.label "Add Amount" %></h1><br>
    <%= f.text_field :amount %>
  </div>

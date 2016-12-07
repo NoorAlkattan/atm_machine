@@ -11,13 +11,18 @@ class AccountsController < ApplicationController
       @account.transactions.create(amount: deposit_params[:amount],atm_machine_id: session[:my_atm], transaction_type: 1)
       flash[:notice] = " Deposit Complete Successfully"
       redirect_to atm_machine_path(session[:my_atm])  
+   else
+     if deposit_params[:amount] > 1000
+      flash[:alert] = "Your Maximum Daily Deposit $1000"
+    render :new_deposit
     else
-      flash[:alert] = @account.errors.full_messages.to_sentence
+     flash[:alert] = "Invalid Deposit Input "
       render :new_deposit
     end
-  end
-  
-  
+end 
+end
+
+
   def new_withdrawal
     @account = Account.find(params[:id])
   end
@@ -29,11 +34,16 @@ class AccountsController < ApplicationController
     flash[:notice] = "Transaction Complete… did you want to perform another transaction?"
     redirect_to atm_machine_path(session[:my_atm])
   else
-    flash[:alert] = @account.errors.full_messages.to_sentence
-    render :new_withdrawal
+     if withdrawal_params[:amount] > 500
+      flash[:alert] = "Your Maximum Daily Withdrawal $500"
+     render :new_withdrawal
+     else
+      flash[:alert] = "Invalid Withdrawal Input"
+       render :new_withdrawal
     end
-  end
-  
+end 
+end
+
   def index
     @accounts = Account.all
   end
@@ -60,4 +70,4 @@ class AccountsController < ApplicationController
     def withdrawal_params
       params.require(:account).permit(:amount)
     end
-end
+  end
