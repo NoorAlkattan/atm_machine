@@ -3,7 +3,7 @@ class Account < ActiveRecord::Base
     has_many :transactions, dependent: :destroy
     #validates_presence_of :user_id
     attr_accessor :amount
-    validates :balance, :numericality => { greater_than_or_equal_to: 0 }
+    #validates :balance, :numericality => { greater_than_or_equal_to: 0 }
     # validates :account_no, :balance, :presence => true
     
     def deposit (amt)
@@ -27,9 +27,6 @@ class Account < ActiveRecord::Base
         return true
       end
    end
-   
-     
-end
 
 private
 
@@ -38,6 +35,7 @@ def limit_daily_deposit?(current_amount)
     sum = amounts_list.map(&:to_f).reduce(:+)
     new_balance_today = sum.to_f + current_amount.to_f
     if new_balance_today > 1000
+        return true
     else
         false
     end
@@ -53,4 +51,5 @@ end
     else
         false
     end
+end
 end

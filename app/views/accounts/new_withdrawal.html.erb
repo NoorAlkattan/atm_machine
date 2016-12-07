@@ -1,6 +1,6 @@
 <div class="container">
  <img src=http://i.perezhilton.com/wp-content/uploads/2014/04/moneyy1.gif width="300" height="300">
-<%= form_for @account, url: create_withdrawal_account_path, method: :post do |f| %>
+ <%= form_for @account, url: create_withdrawal_account_path, method: :post do |f| %>
  <div class="field">
    <h1><%= f.label "Withdraw Amount" %></h1><br>
    <%= f.text_field :amount %>

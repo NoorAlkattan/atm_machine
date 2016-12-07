@@ -2,7 +2,11 @@
   
 <p id="notice"><%= notice %></p>
 <h1>Listing Transactions</h1>
-
+<p>
+    Download:
+    <%= link_to "Transactions.csv" , transactions_path(account_id: params[:account_id],format: "csv") %>
+   
+</p>
 <table class="table table-striped", id= 'myTable'>
   <thead>
     <tr>
@@ -34,5 +38,6 @@
   
  </table>
 <%= link_to 'Back', atm_machine_path(session[:my_atm]),class:"btn btn-danger" %>
+
 </div>
 
