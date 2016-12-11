@@ -7,20 +7,21 @@ class AccountsController < ApplicationController
   
   def create_deposit
     @account = Account.find(params[:id])
-    if deposit_params[:amount].to_f <= 1000 && @account.deposit(deposit_params)
+    if deposit_params[:amount].to_f <= 1000 && deposit_params[:amount].to_f > 0 && @account.deposit(deposit_params)
       @account.transactions.create(amount: deposit_params[:amount],atm_machine_id: session[:my_atm], transaction_type: 1)
       flash[:notice] = " Deposit Complete Successfully"
       redirect_to atm_machine_path(session[:my_atm])  
    else
-     if deposit_params[:amount] > 1000
+     if deposit_params[:amount].to_f > 1000
       flash[:alert] = "Your Maximum Daily Deposit $1000"
-    render :new_deposit
-    else
-     flash[:alert] = "Invalid Deposit Input "
+     elsif @account.errors.any?
+     flash[:alert]=@account.errors.full_messages.to_sentence
+   else
+     flash[:alert] = "Please Enter A Valid Amount"
+   end 
       render :new_deposit
     end
 end 
-end
 
 
   def new_withdrawal
@@ -29,18 +30,19 @@ end
   
   def create_withdrawal
     @account = Account.find(params[:id])
-    if withdrawal_params[:amount].to_f <= @account .balance && withdrawal_params[:amount].to_f <= 500 && @account.withdrawal(withdrawal_params)
+    if withdrawal_params[:amount].to_f <= 500 && withdrawal_params[:amount].to_f > 0 && withdrawal_params[:amount].to_f <= @account .balance && @account.withdrawal(withdrawal_params)
     @account.transactions.create(amount: withdrawal_params[:amount],atm_machine_id: session[:my_atm], transaction_type: 2)
     flash[:notice] = "Transaction Complete… did you want to perform another transaction?"
     redirect_to atm_machine_path(session[:my_atm])
   else
-     if withdrawal_params[:amount] > 500
+     if withdrawal_params[:amount].to_f > 500
       flash[:alert] = "Your Maximum Daily Withdrawal $500"
-     render :new_withdrawal
-     else
-      flash[:alert] = "Invalid Withdrawal Input"
-       render :new_withdrawal
-    end
+     elsif @account.errors.any?
+      flash[:alert] =@account.errors.full_messages.to_sentence
+      else
+        flash[:alert] = "Please Enter A Valid Amount"
+      end
+    render :new_withdrawal
 end 
 end
 

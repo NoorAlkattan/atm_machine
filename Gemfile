@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem "figaro"
 gem 'geocoder'
+gem 'carrierwave'
+gem "rmagick"
 
 
 group :development, :test do
