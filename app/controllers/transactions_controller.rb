@@ -5,12 +5,14 @@ class TransactionsController < ApplicationController
   # GET /transactions.json
   def index
      @transactions = Transaction.where(account_id: params[:account_id])
-    # @transactions = Transaction.order(:account_id)
+   
       respond_to do |format|
       format.html
-      format.csv { render text: @transactions.to_csv }
+      format.csv { send_data @transactions.to_csv }
+     
       
   end
+end
 end
 
 
@@ -79,4 +81,4 @@ end
     def transaction_params
       params.require(:transaction).permit(:transaction_no, :transaction_type, :amount, :account_id)
     end
-  end
+  

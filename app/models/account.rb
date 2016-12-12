@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
     
     def deposit (amt)
       if amt[:amount].to_f <= 0.0 || limit_daily_deposit?(amt[:amount])
-        errors.add(:amount, "please enter amount")
+        errors.add(:amount, "Maximum Daily Desposit $1000")
         return false
       else
         self.balance = self.balance.to_f + amt[:amount].to_f
@@ -19,7 +19,7 @@ class Account < ActiveRecord::Base
 
   def withdrawal (amt)
       if amt[:amount].to_f <= 0.0 || max_withdrawal?(amt[:amount])
-        errors.add(:amount, "please enter amount")
+        errors.add(:amount, "Maximum Daily Withdrawal $500")
         return false
     else
         self.balance = self.balance.to_f - amt[:amount].to_f
