@@ -28,6 +28,7 @@ gem "figaro"
 gem 'geocoder'
 gem 'carrierwave'
 gem "rmagick"
+gem "font-awesome-rails"
 
 
 group :development, :test do

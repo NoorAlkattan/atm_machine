@@ -1,15 +1,19 @@
-<div class="container">
+<center>
    
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>Workspace</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+      <header id="top" class="header">
+     
+    
+    <div class="container">
 <div >
        <% if user_signed_in? %>
      Signed in as <%= current_user.email %> .Not you?
@@ -34,8 +38,11 @@
 	    <%= alert %>
 	  </div>
 	<% end %>
+	<%= render '/layouts/header' %>
 <%= yield %>
-
+    <%= render '/layouts/footer' %>
+</header>
 </body>
 </html>
 </div>
+</center>
